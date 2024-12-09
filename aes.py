@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
-from Crypto.Util import Counter  # Import Counter module
+from Crypto.Util import Counter  
 import qdarkstyle
 
 class AESApp(QWidget):
@@ -14,7 +14,7 @@ class AESApp(QWidget):
         self.setWindowTitle("AESTXT: AES Encryption & Decryption Tool")
         self.setGeometry(300, 100, 800, 700)
 
-        # Set Cyberpunk blue neon theme
+        # theme
         self.setStyleSheet("""
             QWidget {
                 background-color: #1A1A1D;
@@ -111,7 +111,7 @@ class AESApp(QWidget):
         
         layout.addLayout(button_layout)
 
-        # Result Text Area (for copy-pasting)
+        # Result Text Area 
         self.result_text = QTextEdit(self)
         self.result_text.setReadOnly(True)
         layout.addWidget(QLabel("Result:"))
@@ -195,7 +195,7 @@ class AESApp(QWidget):
         layout.addWidget(self.iv_input_gcm)
 
         self.tag_len_input_gcm = QComboBox(self)
-        self.tag_len_input_gcm.addItems(['96', '104', '112', '120', '128'])  # Added selectable tag lengths
+        self.tag_len_input_gcm.addItems(['96', '104', '112', '120', '128'])  
         layout.addWidget(QLabel("Tag Length (in bits):"))
         layout.addWidget(self.tag_len_input_gcm)
 
@@ -246,14 +246,14 @@ class AESApp(QWidget):
                 encrypted = cipher.encrypt(pad(text.encode(), AES.block_size))
             elif mode == 2:  # CTR Mode
                 iv = iv.encode()
-                counter = Counter.new(128, initial_value=int.from_bytes(iv, byteorder='big'))  # Counter based on IV
+                counter = Counter.new(128, initial_value=int.from_bytes(iv, byteorder='big'))  
                 cipher = AES.new(key, AES.MODE_CTR, counter=counter)
                 encrypted = cipher.encrypt(text.encode())
             elif mode == 3:  # GCM Mode
                 iv = iv.encode()
                 cipher = AES.new(key, AES.MODE_GCM, nonce=iv, mac_len=tag_len // 8)
                 encrypted, tag = cipher.encrypt_and_digest(text.encode())
-                encrypted = encrypted + tag  # Append tag to ciphertext
+                encrypted = encrypted + tag  
 
             self.result_text.setText(encrypted.hex())
         except Exception as e:
@@ -284,13 +284,13 @@ class AESApp(QWidget):
                 decrypted = unpad(cipher.decrypt(bytes.fromhex(text)), AES.block_size).decode()
             elif mode == 2:  # CTR Mode
                 iv = iv.encode()
-                counter = Counter.new(128, initial_value=int.from_bytes(iv, byteorder='big'))  # Counter based on IV
+                counter = Counter.new(128, initial_value=int.from_bytes(iv, byteorder='big'))  
                 cipher = AES.new(key, AES.MODE_CTR, counter=counter)
                 decrypted = cipher.decrypt(bytes.fromhex(text)).decode()
             elif mode == 3:  # GCM Mode
                 iv = iv.encode()
                 cipher = AES.new(key, AES.MODE_GCM, nonce=iv, mac_len=tag_len // 8)
-                ciphertext = bytes.fromhex(text)[:-tag_len // 8]  # Remove the tag from the message
+                ciphertext = bytes.fromhex(text)[:-tag_len // 8]  
                 tag = bytes.fromhex(text)[-tag_len // 8:]
                 decrypted = cipher.decrypt_and_verify(ciphertext, tag).decode()
 
@@ -332,8 +332,8 @@ class AESApp(QWidget):
             try:
                 return int(self.tag_len_input_gcm.currentText())
             except ValueError:
-                return 96  # Default tag length if invalid input is given
-        return 96  # Default for other modes
+                return 96  
+        return 96  
 
 # Application entry point
 def main():
