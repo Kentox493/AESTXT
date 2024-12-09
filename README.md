@@ -41,7 +41,7 @@ To run the application, you'll need Python 3.6+ and the following dependencies:
 4. Run the application:
 
     ```bash
-    python app.py
+    python aes.py
     ```
 
 ## Usage
@@ -50,14 +50,8 @@ To run the application, you'll need Python 3.6+ and the following dependencies:
 2. **Text or File Input**: Enter text directly or load a `.txt` file for encryption or decryption.
 3. **Choose AES Mode**: Select the AES mode (ECB, CBC, CTR, or GCM).
 4. **Input IV** (for CBC, CTR, and GCM): Provide a 16-byte Initialization Vector (IV).
-5. **Tag Length** (for GCM): Choose a tag length between 96 and 128 bits for GCM encryption.
+5. **Tag Length** (for GCM): Choose a tag length between 96,104,112,120 and 128 bits for GCM encryption.
 6. **Encrypt or Decrypt**: Click the "Encrypt" or "Decrypt" button to perform the operation.
 7. **Result**: The result will be displayed, and you can copy the encrypted or decrypted data.
 
-## License
 
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-*Program created by Kentox493*
