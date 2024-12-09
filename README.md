@@ -29,7 +29,7 @@ To run the application, you'll need Python 3.6+ and the following dependencies:
 
     ```bash
     python3 -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    source venv/bin/activate  `
     ```
 
 3. Install dependencies:
